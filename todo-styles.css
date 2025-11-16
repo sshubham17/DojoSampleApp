@@ -1,0 +1,313 @@
+/* Todo Page Specific Styles */
+
+.todo-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* Form Container - Left Side */
+.form-container {
+    flex: 0 0 380px;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    height: fit-content;
+}
+
+.form-container h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 20px !important;
+    font-size: 16px;
+    border-radius: 6px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Override ALL Dojo dijit button styles for primary button - Ultra specific */
+.tundra .btn-primary,
+.tundra .btn-primary.dijitButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+}
+
+/* Make inner elements transparent so gradient shows through */
+.btn-primary .dijitButtonNode,
+.btn-primary .dijitReset,
+.btn-primary .dijitInline,
+.btn-primary .dijitButtonContents,
+.tundra .btn-primary .dijitButtonNode,
+.tundra .btn-primary .dijitReset,
+.tundra .btn-primary .dijitInline,
+.tundra .btn-primary .dijitButtonContents,
+.tundra .btn-primary span.dijitButtonNode {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.btn-primary .dijitButtonText,
+.btn-primary span,
+.btn-primary div,
+.tundra .btn-primary .dijitButtonText,
+.tundra .btn-primary span,
+.tundra .btn-primary div,
+.tundra .btn-primary .dijitButtonContents {
+    color: white !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-secondary {
+    flex: 1;
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Table Container - Right Side */
+.table-container-todo {
+    flex: 1;
+    min-width: 0;
+}
+
+.table-container-todo h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.todo-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.todo-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.todo-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+}
+
+.todo-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.todo-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.todo-table td {
+    padding: 12px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.todo-title {
+    font-weight: 600;
+    color: #212529;
+}
+
+.todo-description {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.empty-message {
+    text-align: center !important;
+    color: #6c757d;
+    font-style: italic;
+    padding: 30px !important;
+}
+
+/* Priority Badges */
+.priority-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.priority-badge.priority-low {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.priority-badge.priority-medium {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.priority-badge.priority-high {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Action Buttons */
+.action-buttons {
+    white-space: nowrap;
+}
+
+.btn-toggle {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background 0.2s ease;
+}
+
+.btn-toggle:hover {
+    background: #218838;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .todo-layout {
+        flex-direction: column;
+    }
+    
+    .form-container {
+        flex: 1;
+        width: 100%;
+    }
+    
+    .table-container-todo {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .todo-table th,
+    .todo-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .todo-description {
+        max-width: 150px;
+    }
+    
+    .form-container {
+        padding: 20px;
+    }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Manager - Dojo 1.04 Website</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="todo-styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojo/dojo.xd.js" 
+            djConfig="parseOnLoad: true"></script>
+    <script>
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.form.TextBox");
+        dojo.require("dijit.form.ValidationTextBox");
+        dojo.require("dijit.form.Textarea");
+        dojo.require("dijit.form.FilteringSelect");
+        
+        // Global todo storage
+        var todos = [];
+        var todoIdCounter = 1;
+        
+        function goBack() {
+            window.location.href = "dashboard.html";
+        }
+        
+        function addTodo() {
+            // Get form values
+            var title = dijit.byId("todoTitle").getValue();
+            var description = dijit.byId("todoDescription").getValue();
+            var priority = dijit.byId("todoPriority").getValue();
+            
+            // Basic validation
+            if (!title || title.trim() === "") {
+                alert("Please enter a todo title");
+                return;
+            }
+            
+            // Create todo object
+            var todo = {
+                id: todoIdCounter++,
+                title: title,
+                description: description || "No description",
+                priority: priority || "Medium",
+                status: "Pending",
+                createdAt: new Date().toLocaleString()
+            };
+            
+            // Add to array
+            todos.push(todo);
+            
+            // Update table
+            renderTodoTable();
+            
+            // Clear form
+            dijit.byId("todoTitle").setValue("");
+            dijit.byId("todoDescription").setValue("");
+            dijit.byId("todoPriority").setValue("Medium");
+            
+            console.log("Todo added:", todo);
+        }
+        
+        function deleteTodo(id) {
+            // Find and remove todo
+            for (var i = 0; i < todos.length; i++) {
+                if (todos[i].id === id) {
+                    todos.splice(i, 1);
+                    break;
+                }
+            }
+            renderTodoTable();
+        }
+        
+        function toggleStatus(id) {
+            // Find and toggle status
+            for (var i = 0; i < todos.length; i++) {
+                if (todos[i].id === id) {
+                    todos[i].status = todos[i].status === "Pending" ? "Completed" : "Pending";
+                    break;
+                }
+            }
+            renderTodoTable();
+        }
+        
+        function renderTodoTable() {
+            var tbody = dojo.byId("todoTableBody");
+            
+            if (todos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-message">No todos yet. Add one to get started!</td></tr>';
+                return;
+            }
+            
+            var html = "";
+            for (var i = 0; i < todos.length; i++) {
+                var todo = todos[i];
+                var statusClass = todo.status === "Completed" ? "complete" : "pending";
+                var priorityClass = "priority-" + todo.priority.toLowerCase();
+                
+                html += '<tr>';
+                html += '<td>' + todo.id + '</td>';
+                html += '<td class="todo-title">' + todo.title + '</td>';
+                html += '<td class="todo-description">' + todo.description + '</td>';
+                html += '<td><span class="priority-badge ' + priorityClass + '">' + todo.priority + '</span></td>';
+                html += '<td><span class="status-badge ' + statusClass + '">' + todo.status + '</span></td>';
+                html += '<td class="action-buttons">';
+                html += '<button onclick="toggleStatus(' + todo.id + ')" class="btn-toggle">Toggle</button> ';
+                html += '<button onclick="deleteTodo(' + todo.id + ')" class="btn-delete">Delete</button>';
+                html += '</td>';
+                html += '</tr>';
+            }
+            
+            tbody.innerHTML = html;
+        }
+        
+        function exportTodos() {
+            var json = dojo.toJson(todos, true);
+            alert("Todos exported to console");
+            console.log("Exported Todos:", json);
+        }
+        
+        function importTodos() {
+            var jsonInput = prompt("Paste your todos JSON:");
+            if (jsonInput) {
+                try {
+                    var imported = dojo.fromJson(jsonInput);
+                    todos = imported;
+                    renderTodoTable();
+                    alert("Todos imported successfully!");
+                } catch(e) {
+                    alert("Invalid JSON format");
+                }
+            }
+        }
+        
+        dojo.addOnLoad(function() {
+            console.log("Todo Manager loaded with Dojo 1.04");
+            renderTodoTable();
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="container">
+        <div class="page-header">
+            <h1>Todo Manager</h1>
+            <p class="subtitle">Add and manage your tasks</p>
+        </div>
+        
+        <div class="content-section">
+            <button onclick="goBack()" class="back-button">
+                ← Back to Dashboard
+            </button>
+            
+            <div class="todo-layout">
+                <!-- Left side - Form -->
+                <div class="form-container">
+                    <h2>Add New Todo</h2>
+                    
+                    <div class="form-group">
+                        <label for="todoTitle">Title *</label>
+                        <input id="todoTitle" 
+                               dojoType="dijit.form.ValidationTextBox"
+                               required="true"
+                               promptMessage="Enter todo title"
+                               class="form-input" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="todoDescription">Description</label>
+                        <textarea id="todoDescription" 
+                                  dojoType="dijit.form.Textarea"
+                                  class="form-textarea"
+                                  rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="todoPriority">Priority</label>
+                        <select id="todoPriority" 
+                                dojoType="dijit.form.FilteringSelect"
+                                value="Medium"
+                                class="form-select">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    
+                    <button dojoType="dijit.form.Button" 
+                            onClick="addTodo()" 
+                            class="btn-primary">
+                        Add Todo
+                        <script type="dojo/method" event="onClick">
+                            addTodo();
+                        </script>
+                    </button>
+                    
+                    <div class="form-actions">
+                        <button onclick="exportTodos()" class="btn-secondary">Export Todos</button>
+                        <button onclick="importTodos()" class="btn-secondary">Import Todos</button>
+                    </div>
+                </div>
+                
+                <!-- Right side - Table -->
+                <div class="table-container-todo">
+                    <h2>Your Todos</h2>
+                    
+                    <div class="table-wrapper">
+                        <table class="todo-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todoTableBody">
+                                <tr>
+                                    <td colspan="6" class="empty-message">No todos yet. Add one to get started!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

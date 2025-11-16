@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Dojo 1.04 Website</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojo/dojo.xd.js" 
+            djConfig="parseOnLoad: true"></script>
+    <script>
+        dojo.require("dijit.form.Button");
+        
+        function navigateToContents() {
+            window.location.href = "contents.html";
+        }
+        
+        function navigateToTodo() {
+            window.location.href = "todo.html";
+        }
+        
+        dojo.addOnLoad(function() {
+            console.log("Dashboard loaded with Dojo 1.04");
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="container">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <p class="subtitle">Welcome to the Dojo 1.04 Website</p>
+        </div>
+        
+        <div class="content-section">
+            <div class="dashboard-card">
+                <h2>Quick Actions</h2>
+                <p>View the todo list from API or manage your personal todos.</p>
+                
+                <button dojoType="dijit.form.Button" 
+                        onClick="navigateToContents()" 
+                        class="nav-button">
+                    View Todo List (API)
+                    <script type="dojo/method" event="onClick">
+                        navigateToContents();
+                    </script>
+                </button>
+                
+                <button dojoType="dijit.form.Button" 
+                        onClick="navigateToTodo()" 
+                        class="nav-button">
+                    Manage Personal Todos
+                    <script type="dojo/method" event="onClick">
+                        navigateToTodo();
+                    </script>
+                </button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>About This Site</h3>
+                <p>This is a simple demonstration website built with Dojo Toolkit version 1.04.</p>
+                <ul>
+                    <li>Dashboard with navigation</li>
+                    <li>Todo list page (fetches from API)</li>
+                    <li>Personal todo manager with form</li>
+                    <li>Back navigation support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
