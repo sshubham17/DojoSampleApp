@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dojo 1.04 Website - Test Suite</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.19.4.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #test-info {
+            background: #f0f0f0;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        #test-info h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .info-item {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="test-info">
+        <h2>Dojo 1.04 Website Test Suite</h2>
+        <div class="info-item"><strong>Purpose:</strong> Pre-migration baseline tests for Dojo migration</div>
+        <div class="info-item"><strong>Framework:</strong> QUnit</div>
+        <div class="info-item"><strong>Note:</strong> Run these tests before and after migration to ensure no regressions</div>
+    </div>
+    
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <!-- Test fixtures go here -->
+        <div id="test-container"></div>
+    </div>
+    
+    <script src="https://code.jquery.com/qunit/qunit-2.19.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojo/dojo.xd.js" 
+            djConfig="parseOnLoad: true"></script>
+    <script src="unit-tests.js"></script>
+</body>
+</html>
